@@ -1,20 +1,20 @@
 package br.senai.sp.jandira.model;
 
-public class Cadastro {
+public class Contato {
 
 	private String nome;
 	private String email;
 	private String telefone;
 	private String cidade;
 
-	public Cadastro(String nome, String email, String telefone, String cidade) {
+	public Contato(String nome, String email, String telefone, String cidade) {
 		this.nome = nome;
 		this.email = email;
 		this.telefone = telefone;
 		this.cidade = cidade;
 	}
 	
-	public Cadastro() {
+	public Contato() {
 		
 	}
 
