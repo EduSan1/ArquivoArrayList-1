@@ -10,7 +10,7 @@ public class App {
 		DadosContato objDadosContato = new DadosContato();
 		Arquivo objArquivo = new Arquivo();
 		
-		String caminho = "C:\\Users\\21276327\\Desktop\\Contato\\contatos.txt";
+		String caminho = "C:\\Users\\21276323\\Desktop\\Contato\\contatos.txt";
 		
 		//Objetos de contato para teste:
 		Contato contato1 = new Contato("Ana Silva", "ana.silva@gmail.com", "1111-2222", "Jandira");
