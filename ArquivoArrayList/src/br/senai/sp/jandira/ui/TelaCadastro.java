@@ -9,6 +9,8 @@ import br.senai.sp.jandira.DadosContato;
 import br.senai.sp.jandira.model.Contato;
 
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import javax.swing.SwingConstants;
 import javax.swing.JTextField;
@@ -33,7 +35,6 @@ public class TelaCadastro extends JFrame {
 
 	public TelaCadastro() {
 
-		objContato = new Contato();
 		objDadosContato = new DadosContato();
 		objArquivo = new Arquivo();
 
@@ -94,45 +95,61 @@ public class TelaCadastro extends JFrame {
 		contentPane.add(txtCidade);
 
 		JButton btnCadastrar = new JButton("Cadastrar");
+
 		btnCadastrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				// Captura dos dados para o objeto de contato
-				objContato.setNome(txtNome.getText());
-				objContato.setEmail(txtEmail.getText());
-				objContato.setTelefone(txtTelefone.getText());
-				objContato.setCidade(txtCidade.getText());
+				if (txtCidade.getText().equals("") && txtEmail.getText().equals("") && txtNome.getText().equals("")
+						&& txtTelefone.getText().equals("")) {
 
-				// Preparação dos dados para a gravação mo arquivo txt
+					JOptionPane.showMessageDialog(null, "Insira todos os dados para continuar", "Dados não preenchidos",
+							JOptionPane.ERROR_MESSAGE);
+
+				} else {
+
+					objContato = new Contato();
+					// Captura dos dados para o objeto de contato
+					objContato.setNome(txtNome.getText());
+					objContato.setEmail(txtEmail.getText());
+					objContato.setTelefone(txtTelefone.getText());
+					objContato.setCidade(txtCidade.getText());
+
+					// Preparação dos dados para a gravação mo arquivo txt
 //				String texto = objContato.getNome() + ";" + objContato.getEmail() + ";" + objContato.getTelefone() + ";"
 //						+ objContato.getCidade() + "\n";
 
-				// Gravação dos dados no arquivo txt
-				String caminho = "C:\\Users\\21276323\\Desktop\\Contato\\contatos.txt";
+					// Gravação dos dados no arquivo txt
+					String caminho = "C:\\Users\\21276323\\Desktop\\Contato\\contatos.txt";
 
-				// teste de leitura de arquivo txt
-				objDadosContato = objArquivo.ler(caminho);
+					// teste de leitura de arquivo txt
+					objDadosContato = objArquivo.ler(caminho);
 
-				// gravação
+					// gravação
 
-				objDadosContato.cadastrarContato(objContato);
+					objDadosContato.cadastrarContato(objContato);
 
-				ArrayList<Contato> contatos = objDadosContato.listarContatos();
+					ArrayList<Contato> contatos = objDadosContato.listarContatos();
 
-				contatos.forEach(contato -> {
+					contatos.forEach(contato -> {
 //					System.out.println("NOME: " + contato.getNome() + " EMAIL: " + contato.getEmail() + " TELEFONE: "
 //							+ contato.getTelefone() + " CIDADE: " + contato.getCidade());
-					texto += contato.getNome() + ";" + 
-							contato.getEmail() + ";" + 
-							contato.getTelefone() + ";"
-							+ contato.getCidade() + "\n";
-				});
+						texto += contato.getNome() + ";" + contato.getEmail() + ";" + contato.getTelefone() + ";"
+								+ contato.getCidade() + "\n";
 
-				System.out.println(texto);
+						txtNome.setText("");
+						txtCidade.setText("");
+						txtEmail.setText("");
+						txtTelefone.setText("");
+					});
 
-				objArquivo.escrever(caminho, texto);
-			
-				contatos = null;
+					System.out.println(texto);
+
+					objArquivo.escrever(caminho, texto);
+					texto = "";
+					contatos.clear();
+					objDadosContato = null;
+					objContato = null;
+				}
 			}
 		});
 		btnCadastrar.setFont(new Font("Tahoma", Font.PLAIN, 12));
